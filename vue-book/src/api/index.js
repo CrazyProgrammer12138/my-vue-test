@@ -27,3 +27,7 @@ export let getBooks = () =>{
   return axios.get('/book');
 }
 
+// 删除谋一本书
+export let removeBook = (id) =>{
+  return axios.delete(`/book?id=${id}`);
+}
