@@ -9,7 +9,7 @@
             <h4>{{item.bookName}}</h4>
             <p>{{item.bookInfo}}</p>
             <b>{{item.bookPrice}}</b>
-            <button>删除</button>
+            <button @click="remove(item.bookId)">删除</button>
           </div>
         </li>
       </ul>
@@ -19,7 +19,7 @@
 
 <script>
   import MHeader from '../base/MHeader.vue'
-  import { getBooks } from '../api/index.js'
+  import { getBooks, removeBook } from '../api/index.js'
   export default {
     name: "List",
     created(){
@@ -31,6 +31,13 @@
       }
     },
     methods:{
+      async remove(id){
+        await removeBook(id);
+        // 要删除前台数据使用filter过滤
+        //filter必须有变量接收
+        this.books = this.books.filter(item=>item.bookId !== id);
+
+      },
       async getData(){
         this.books = await getBooks();
       }
