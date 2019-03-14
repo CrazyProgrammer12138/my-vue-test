@@ -22,6 +22,14 @@ function read(cb) {
 // read(function (books) {
 //   console.log(books)
 // });
+// 写人文件
+function write(data, cb){
+  fs.writeFile('./book.json', JSON.stringify(data), cb);
+}
+// write({}, function () {
+//   console.log('写入成功')
+// })
+
 http.createServer((req, res)=>{
   // 设置跨域请求头
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -67,6 +75,12 @@ http.createServer((req, res)=>{
       case 'PUT':
         break;
       case 'DELETE':
+        read(function (books) {
+          books = books.filter(item=>item.bookId !== id);
+          write(books, function () {
+            res.end(JSON.stringify({}));// 删除返回空对象
+          })
+        })
         break;
     }
     return; 
