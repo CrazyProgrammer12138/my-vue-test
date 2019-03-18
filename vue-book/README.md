@@ -31,3 +31,8 @@
   1、js文件形式，只可以做死数据没有办法使用fs.writeFile方法实现数据动态更改；
   2、fs.writeFile：会把之前的数据删除，再去添加数据，那么js文件中module.exports
 就是被替换掉，所以动态数据使用json
+
+## 路由元信息
+页面级缓存
+需要在路由path对象中加入mete:{keepAlive:true}, 对那个单页进行缓存
+

@@ -3,15 +3,22 @@
     <MHeader>列表页</MHeader>
     <div class="content">
       <ul>
-        <li v-for="(item, index) in books" :key="index">
+        <!--跳转的需要使用router-link：但是router-link是 a 标签，想要的是li， 所以加一个属性 tag='li'
+          to: 去到另一个组件，接收值 :to
+          params: 路径参数 是一个对象 传出的值
+        -->
+        <router-link v-for="(item, index) in books" :key="index" :to="{name:'detail', params:{bid: item.bookId}}" tag="li">
           <img :src="item.bookCover" alt="">
           <div>
             <h4>{{item.bookName}}</h4>
             <p>{{item.bookInfo}}</p>
             <b>{{item.bookPrice}}</b>
-            <button>删除</button>
+            <!--问题：点击跳转，但是点击删除也会触发，事件冒泡
+                解决：@click.stop
+            -->
+            <button @click.stop="remove(item.bookId)">删除</button>
           </div>
-        </li>
+        </router-link>
       </ul>
     </div>
   </div>
@@ -19,7 +26,7 @@
 
 <script>
   import MHeader from '../base/MHeader.vue'
-  import { getBooks } from '../api/index.js'
+  import { getBooks, removeBook } from '../api/index.js'
   export default {
     name: "List",
     created(){
@@ -31,6 +38,12 @@
       }
     },
     methods:{
+      async remove(id){
+        await removeBook(id);
+        // 要删除前台数据使用filter过滤
+        //filter必须有变量接收
+        this.books = this.books.filter(item=>item.bookId !== id);
+      },
       async getData(){
         this.books = await getBooks();
       }

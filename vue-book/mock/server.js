@@ -22,6 +22,14 @@ function read(cb) {
 // read(function (books) {
 //   console.log(books)
 // });
+// 写人文件
+function write(data, cb){
+  fs.writeFile('./book.json', JSON.stringify(data), cb);
+}
+// write({}, function () {
+//   console.log('写入成功')
+// })
+
 http.createServer((req, res)=>{
   // 设置跨域请求头
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -43,7 +51,9 @@ http.createServer((req, res)=>{
       //books.reverse(): 倒叙,截取6个
       let hot = books.reverse().slice(0,6);
       res.setHeader('Content-Type', 'application/json;charset=utf8');
-      res.end(JSON.stringify(hot));
+      setTimeout(function () {
+        res.end(JSON.stringify(hot));
+      }, 500)
     })
     return;
   }
@@ -52,8 +62,13 @@ http.createServer((req, res)=>{
     let id = parseInt(query.id);// 取出的字符串
     switch (req.method) { // ?id=1
       case 'GET':
-        if (id) { // 有id查询一个
-
+        if (typeof id !== 'undefined'&&!isNaN(id)) { // 有id查询一个
+          read(function (books) {
+            let book = books.find(item=>item.bookId === id);
+            if (!book)  book = {};
+            res.setHeader('Content-Type', 'application/json;charset=utf8');
+            res.end(JSON.stringify(book));
+          })
         } else { // 获取所有图书
           // 编码格式
           read(function (books) {
@@ -63,12 +78,58 @@ http.createServer((req, res)=>{
         }
         break;
       case 'POST':
+        let str = '';
+        req.on('data',chunk => {
+          str += chunk;
+        })
+        req.on('end', ()=>{
+          let book = JSON.parse(str);
+          read(function (books) {
+            book.bookId = books.bookId?books[books.length-1].bookId+1:1;
+            // 将数据放到book中，books在内存中
+            books.push(book);
+            write(books, function () {
+              res.end(JSON.stringify(book));
+            })
+          })
+        })
         break;
       case 'PUT':
+        if (id){ // 获取了当前要修改的id
+          let str = '';
+          // 获取数据 req.on
+          req.on('data', chunk=>{
+            str+= chunk;
+          });
+          req.on('end', ()=>{
+            let book = JSON.parse(str); // book 要改成什么样子
+            // 先读文件
+            read(function (books) {
+              // 修改就映射一个新的 map
+              books = books.map(item=>{
+                // 找到要修改的ID，然会新的，否则输出item
+                if (item.bookId === id) {
+                  return book;
+                }
+                return item;
+              });
+              // 写入到文件中去
+              write(books, function () {
+                res.end(JSON.stringify(book));
+              })
+            })
+          })
+        }
         break;
       case 'DELETE':
+        read(function (books) {
+          books = books.filter(item=>item.bookId !== id);
+          write(books, function () {
+            res.end(JSON.stringify({}));// 删除返回空对象
+          })
+        })
         break;
     }
-    return; 
+    return;
   }
 }).listen(3000);
