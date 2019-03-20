@@ -9,7 +9,14 @@ Vue.config.productionTip = false;
 import VueAwesomeSwiper from 'vue-awesome-swiper';
 import 'swiper/dist/css/swiper.css';
 Vue.use(VueAwesomeSwiper);
-
+// 图片兰夹杂
+import VueLazyLoad from 'vue-lazyload';
+Vue.use(VueLazyLoad, {
+  preLoad: 1.3,
+  error: 'http://hbimg.b0.upaiyun.com/1e3ead27ad747c7c92e659ac5774587a680bb8d25252-mRVFlu_fw658',
+  loading: 'http://help.leadsquared.com/wp-content/themes/help/img/Spinner_t.gif',
+  attempt: 1
+})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

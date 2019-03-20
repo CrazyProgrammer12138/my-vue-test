@@ -36,3 +36,7 @@
 页面级缓存
 需要在路由path对象中加入mete:{keepAlive:true}, 对那个单页进行缓存
 
+## 下拉加载 /page
+- 默认每次给5条，前端告诉后台现在要从第几条开始给我
+- /page?offset=5
+- 后台返回还要告诉前端是否有更多数据：hasMore：false

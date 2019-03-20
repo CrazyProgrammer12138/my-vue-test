@@ -4,6 +4,7 @@ let url = require('url');
 // 获取轮播图：/sliders
 let sliders = require('./sliders.js');
 
+let pageSize = 5;// 每页显示5个
 function read(cb) {
   // readFile异步的，解决异步回调函数
   // 第三个参数不能是cb，因为有可能会有错误，每次错误处理
@@ -39,6 +40,23 @@ http.createServer((req, res)=>{
   if(req.method=="OPTIONS") return res.end();/*让options请求快速返回*/
   // true 把query转化成对象
   let {pathname, query} = url.parse(req.url, true);
+
+  // 下拉加载
+  if (pathname === '/page') {
+    // 那到当前前端传递的值
+    let offset = parseInt(query.offset) || 0;
+    read(function (books) {
+      // 每次偏移量 在偏移的基础上增加5条
+      let result = books.reverse().slice(offset, offset+pageSize); // 数据倒叙
+      let hasMore = true; // 默认有更多
+      if (books.length<=offset+pageSize) { // 已经显示的数目 大于了总共条数
+        hasMore = false;
+      }
+      res.setHeader('Content-Type', 'application/json;charset=utf8');
+      res.end(JSON.stringify({hasMore, books: result}))
+    });
+    return;
+  }
   if (pathname === '/sliders') {
     // 编码格式
     res.setHeader('Content-Type', 'application/json;charset=utf8');
@@ -85,7 +103,7 @@ http.createServer((req, res)=>{
         req.on('end', ()=>{
           let book = JSON.parse(str);
           read(function (books) {
-            book.bookId = books.bookId?books[books.length-1].bookId+1:1;
+            book.bookId = books.length?books[books.length-1].bookId+1:1;
             // 将数据放到book中，books在内存中
             books.push(book);
             write(books, function () {
