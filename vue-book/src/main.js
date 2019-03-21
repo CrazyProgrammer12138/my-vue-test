@@ -17,6 +17,17 @@ Vue.use(VueLazyLoad, {
   loading: 'http://help.leadsquared.com/wp-content/themes/help/img/Spinner_t.gif',
   attempt: 1
 })
+// 对title进行设置,在进入路由之前 每一次都会执行此方法,全局钩子,拦截功能(用于判断权限) next: 继续执行下去 to:从上一层
+router.beforeEach(function (to, from, next) {
+  document.title = to.meta.title;
+  next();
+  // 权限的验证: 如果权限不够进入到 next({path:'对应的地址'}) 拦截功能
+  // if (to.path === '/list') {
+  //   next({path:'/add'});
+  // } else {
+  //   next();
+  // }
+})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

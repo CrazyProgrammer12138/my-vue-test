@@ -1,0 +1,2 @@
+webpackJsonp([5],{LJAZ:function(e,t){},QV70:function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var c={render:function(){var e=this.$createElement;return(this._self._c||e)("div",[this._v("\n  collect\n")])},staticRenderFns:[]};var r=n("VU/8")({name:"Collect"},c,!1,function(e){n("LJAZ")},"data-v-6d591ba6",null);t.default=r.exports}});
+//# sourceMappingURL=5.ffe35959c375be66e6ca.js.map

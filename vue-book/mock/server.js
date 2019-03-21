@@ -150,4 +150,24 @@ http.createServer((req, res)=>{
     }
     return;
   }
+
+  // 启动静态文件/dist/index.html
+  // 判断文件是否存在fs.stat
+  // 读取一个路径
+   fs.stat('.'+pathname, function (err, stats) {
+      if(err) {
+        // res.statusCode = 404;
+        // res.end('NOT FOUND');
+        fs.createReadStream('index.html').pipe(res);
+      }else{
+        // 读一个文件流
+        // 判断是否是个文件夹
+        if (stats.isDirectory()) {
+          let p = require('path').join('.'+pathname, './index.html');
+          fs.createReadStream(p).pipe(res);
+        } else {
+          fs.createReadStream('.'+pathname).pipe(res);
+        }
+      }
+   })
 }).listen(3000);
