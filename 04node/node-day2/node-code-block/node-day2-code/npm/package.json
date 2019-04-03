@@ -1,0 +1,11 @@
+{
+  "name": "npm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "05.1.npm.js",
+  "scripts": {
+    "test": "node 05.1.npm.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
