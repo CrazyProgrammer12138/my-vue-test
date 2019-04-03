@@ -77,8 +77,41 @@
     package.json 目录不能有中文，特殊字符，大写，默认先找当前目录下的package.json
     如果当前目录没有回去上级查找，找不到才认为在当前目录下安装
     package.json script:可以配置快捷方式
-    
-#### http-server
+
+## 项目依赖
+-- 开发时使用，上线还需要
+    npm install jquery
+## 开发依赖
+-- 开发时使用，线上不使用
+    npm install less --save-dev
+    npm uninstall less --sav-dev
+## 安装全部依赖
+-- npm install
+
+## yarn安装 = cnpm
+-- npm install -g yarn
+    yarn init
+    yarn add 依赖
+    yarn remove 依赖
+    yarn add less --dev
+    yarn install
+
+## 想发布包
+-- 先回到国外 nrm use npm
+-- 包名不能喝已有的包一致
+-- 入口文件，做整合用的
+-- 注册账号
+    npm addUser
+-- 发布
+    npm publish
+
+## 第三方模块不需要./ 的形式引入  可以直接通过报包将文件引入，
+    找package.json中的main文件运行，如果当前目录下没有找到，
+    回向上一级查找，找到计算机的根目录为止
+
+
+
+# http-server
 -- 帮我们启一个本地服务
 -- npm install http-server -g
 -- http-server -p（改端口）3000 在某个路径下启动服务
