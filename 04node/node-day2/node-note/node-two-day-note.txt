@@ -1,0 +1,19 @@
+## 01-buffer（16进制）
+## 什么是Buffer
+-- 缓冲区Buffer是暂时存放输入输出的数据的
+-- JS语言没有二进制数据类型，而在处理TCP和文件流的时候，必须要处理二进制数据
+-- NodeJS提供了一个BUffer对象来提供对二进制数据的操作
+-- 是一个表示固定内存分配的全局对象，也就是说要放到缓存区中的字节数需要提前确定
+-- Buffer好比由一个对位字节元素组成的数组，可以有效的在javascript中表示二进制
+    数据
+
+## 定义buffer
+-- 通过此长度定义buffer
+-- 通过数组定义buffer
+-- 字符串创建buffer
+## buffer常用方法
+-- buffer.fill:填充buffer中的内容
+-- buffer.toString: 将buffer转化成字符串
+-- buffer.copy：拷贝buffer
+-- buffer.slice: 截取想要的buffer
+-- buffer.concat: buffer的链接方法

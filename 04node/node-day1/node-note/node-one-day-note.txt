@@ -109,7 +109,10 @@
     找package.json中的main文件运行，如果当前目录下没有找到，
     回向上一级查找，找到计算机的根目录为止
 
-
+## 继承
+-- Object.setPrototypeOf(A.prototype, B.prototype);// 只继承公有
+-- A.prototype.__proto__ = B.prototype: 间接继承，连接到父亲上
+-- 继承私有 + 继承公有
 
 # http-server
 -- 帮我们启一个本地服务
