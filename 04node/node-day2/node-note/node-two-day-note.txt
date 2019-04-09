@@ -58,3 +58,28 @@
 -- mkdir
     创建文件夹 
     实例：递归创建目录
+
+-- path
+    join: 拼接一个路径
+
+-- events
+    remove
+    once
+    on
+    emit
+
+-- 流
+    流 可读流 可写流 有方向的  分段读
+    流 可以边读边写  不是疯狂的读
+    流的方法都是异步的
+    rs.on('data'): 触发流事件
+    rs.on('end'): 默认data事件是不停的触发 直到文件中的数据全部读出来
+    rs.on('err'):  文件不存在或报错
+    rs.pause(); 暂停的是on('data') 的触发
+    rs.resume(); 恢复data事件的触发
+    let rs = fs.createReadStream('3.txt', {highWaterMark: 1})
+    
+    参数：highWaterMark 每次能读多少 默认64k 默认不需要更改
+    读取默认buffer类型
+    需要监听事件  事件叫数据到来事件  rs.emit('data', 数据)
+    默认叫非流动模式 => 流动模式
