@@ -30,3 +30,31 @@
 -- 2.读取的默认类型就是buffer
 -- 3.async await es7语法 node版本至少是7.9+
     async 后面只能跟随promise
+-- 4.回调地狱  链式写法then
+-- 5.解决同步异步的结果  Promise.all 如果都成功才成功 一个失败就失败
+-- 6.Promise.race() 判断哪个方法比较快
+-- 7.Promise类上拥有两个方法可以把结果包装成promise对象rejct/resolve
+    （表示一开始就失败或者成功）
+
+## 递归创建目录
+-- writeFile
+    如果程序 只开始执行一次  可以同步
+    readFile会把内容读到buffer中，用这种方式会导致淹没内存
+    有读就有写
+    读取都是类型都是buffer  写入的时候utf8
+    读取的文件必须存在   写的时候 文件不存在会自动创建，里面有内容会覆盖
+    默认会调用toString方法
+    每次写入都是覆盖，appendFile 追加 少用
+
+-- * stat 
+    判断文件的状态
+    atime  access time  访问时间
+    mtime  modify time  修改时间
+    ctime  chage time   变化时间
+    birthtime     创建时间
+    stats.isFile() 是否是文件 boolean
+    stats.isDirectory() 判断是否是文件夹   boolean
+
+-- mkdir
+    创建文件夹 
+    实例：递归创建目录
