@@ -78,7 +78,7 @@
     rs.pause(); 暂停的是on('data') 的触发
     rs.resume(); 恢复data事件的触发
     let rs = fs.createReadStream('3.txt', {highWaterMark: 1})
-    
+
     参数：highWaterMark 每次能读多少 默认64k 默认不需要更改
     读取默认buffer类型
     需要监听事件  事件叫数据到来事件  rs.emit('data', 数据)
