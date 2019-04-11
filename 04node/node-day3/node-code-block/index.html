@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <!-- 不支持 ../ 路径 ./ 路径 -->
+    <link rel="stylesheet" href="index.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <div id="clock"></div>
+    <script>
+      // 跨域：协议 端口号  域名有一个不相同
+      // fetch 基于promise的
+      fetch('/clock', {
+        method: 'GET'
+      })
+        .then(function(res) {
+          return res.json() // 转成想要的格式  相当于JSON.parse()
+        })
+        .then(function(data) {
+          clock.innerHTML = data.time
+        })
+
+      // let xhr = new XMLHttpRequest()
+      // xhr.open('get', '/clock', true)
+      // xhr.onload = function() {
+      //   if (this.status == 200) {
+      //     clock.innerHTML = xhr.response
+      //   }
+      // }
+      // xhr.send()
+    </script>
+  </body>
+</html>

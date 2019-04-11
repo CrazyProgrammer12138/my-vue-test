@@ -2,4 +2,25 @@
 -- pipe实例: 30b  地区4b 5次  读取第一次就开始写  只能写1b， 
     暂停读取，当调用drain后再恢复读取
 -- pipe：分段读取
-## 
+## http
+-- res.statusCode // 发送状态码
+
+## url
+-- url.parse()  解析当前路径
+    // 'http://username:password@localhost:3000/s?a=1&b=2#hash',
+    // protocol: 'http:', 协议
+    // slashes: true, 是否有 //
+    // auth: 'username:password', 作者
+    // host: 'localhost:3000',
+    // port: '3000', 端口号
+    // hostname: 'localhost', 主机名
+    // hash: '#hash',
+    // search: '?a=1&b=2',
+    // query: 'a=1&b=2', 参数
+    // pathname: '/s',
+    // path: '/s?a=1&b=2',
+    // href: 'http://username:password@localhost:3000/s?a=1&b=2#hash' }
+
+## fetch
+## 常见的请求
+-- GET POST PUT DELETE OPRIONS(试探性请求)
