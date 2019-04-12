@@ -24,7 +24,7 @@
         <div class="col-md-2">
           <button class="btn btn-primary btn-sm add">添加</button>
         </div>
-        <ul class="list-group">
+        <ul class="col-md-12 list-group">
           <li class="list-group-item">
             用户名：xxx 密码：xxx
           </li>
@@ -39,17 +39,17 @@
         let username = document.getElementById('username')
         let password = document.getElementById('password')
         let add = document.querySelector('.add')
-
-        let template = function(username, password) {
+        let template = function(username, password, id) {
           return `<li class="list-group-item">
-            ${username} ${password}
+            用户名：${username} 密码：${password}
+            <button type="button" class="btn btn-danger btn-sm pull-right remove" data-id="${id}">删除</button>
           </li>`
         }
         // 用来将数据渲染到dom上
         function render(data) {
           let str = ''
           data.forEach(item => {
-            str += template(item.username, item.password)
+            str += template(item.username, item.password, item.id)
           })
           oUl.innerHTML = str
         }
@@ -82,7 +82,7 @@
               let oDiv = document.createElement('div')
               // 把每次创建的li添加到oDiv中去， 然后再添加到ul中
               // 根据数据创建一个 li
-              oDiv.innerHTML = template(data.username, data.password)
+              oDiv.innerHTML = template(data.username, data.password, data.id)
               // 添加到ul 中用childNodes不行，要用 firstElementChild 第一个元素节点
               // 将li扔到我们的页面上
               oUl.appendChild(oDiv.firstElementChild)
@@ -90,6 +90,22 @@
             .catch(err => {
               console.log(err)
             })
+        })
+        oUl.addEventListener('click', function(e) {
+          console.log(e.target.tagName)
+          if (e.target.tagName === 'BUTTON') {
+            let id = e.target.dataset.id
+            fetch(`/user?id=${id}`, {
+              method: 'DELETE'
+            })
+              .then(res => {
+                return res.json()
+              })
+              .then(data => {
+                // 删除前后台数据
+                oUl.removeChild(e.target.parentNode)
+              })
+          }
         })
       })()
     </script>

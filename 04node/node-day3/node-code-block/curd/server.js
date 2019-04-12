@@ -17,7 +17,6 @@ http
     if (pathname === '/user') {
       //访问 /user 就是对用户的增删改查
       // method 方法全部大写
-      console.log(req.method)
 
       switch (req.method) {
         case 'GET':
@@ -29,11 +28,11 @@ http
         case 'POST': // 添加的逻辑
           let str = ''
           req.on('data', function(chunk) {
-              //拼接后的结果是一个字符串
+            //拼接后的结果是一个字符串
             str += chunk
           })
           req.on('end', function() {
-              // 将字符串转换成对象
+            // 将字符串转换成对象
             let user = JSON.parse(str)
             // 如果有数据 取最后一个的id+1 没有数组直接默认是1
             user.id = users.length > 0 ? users[users.length - 1].id + 1 : 1
@@ -42,13 +41,14 @@ http
           })
           break
         case 'DELETE':
+          users = users.filter(item => item.id != id)
+          res.end(JSON.stringify({}))
           break
         case 'PUT':
           break
       }
       return
     }
-
     //1、判断文件 文件夹 fs.stat()
     fs.stat('.' + pathname, function(err, stats) {
       if (err) {
