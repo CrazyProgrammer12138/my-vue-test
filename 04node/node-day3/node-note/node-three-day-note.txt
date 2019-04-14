@@ -24,3 +24,6 @@
 ## fetch
 ## 常见的请求
 -- GET POST PUT DELETE OPRIONS(试探性请求)
+
+## jsonp原理：script没有跨域的问题
+-- 缺点：定义的函数必须是全局函数
