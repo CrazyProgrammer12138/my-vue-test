@@ -1,20 +1,20 @@
-let http = require('http');
-let port = 8080;
-// 1.当前访问 /sigin 返回登录
-// 2.当前访问 /signup 返回注册
-// 2.访问其它 返回404
-let url = require('url');
-http.createServer(function (req, res) {
-    // 路由: 根据不用的路径返回不同的内容
-    let {pathname, query} = url.parse(req.url,true)
-    if (pathname === '/sigin') {
-        res.setHeader('Content-Type','text/plain;charset=utf-8');
-        return res.end('登录');
-    } else if (pathname === '/signup'){
-        return res.setHeader('Content-Type','text/plain;charset=utf-8');
-        res.end('注册');
-    }
-    res.end('404')
-}).listen(port, function () {
-    console.log(`后台访问的是${port}`)
-}); 
+let express = require('express');
+let app = express();
+app.listen(3000);
+// app 监听函数上  扩展了很多方法 包括get  post delete put RESTful风格中的动词
+// app.方法名('路径名',fn)
+// 从上到下匹配 如果匹配到了 并且结束响应 就不会继续向下走
+
+//路径指的是pathname  没有问号后面的内容
+//express  重点 扩展req和res的属性
+app.get('/signin', function (req, res) {
+    res.end('登录')
+});
+
+app.post('/signin', function (req, res) {
+    res.end('post登录')
+});
+// 所有不匹配, all匹配所有的路径  一般放到最后
+app.get('*', function (req,res) {
+    res.end('404');
+});
