@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+<body>
+<%=username%>
+<%=password%>
+
+<!--<span>ejs：模板写法，js语法写在<%%>中</span>-->
+<%arr.forEach((item)=>{%>
+    <li><%=item%></li>
+<%})%>
+
+<%arr.map((item)=>{%>
+<li><%=item+1%></li>
+<%})%>
+
+<!--<%-%>: html转换成html代码-->
+<!--<%include 模块名%>: 导入模块-->
+</body>
+</html>
