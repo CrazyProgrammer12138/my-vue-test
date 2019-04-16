@@ -8,3 +8,51 @@
     6.模块解析：
     7.重定向：
     还可以使用其它模块帮助你创建各种web和移动设备应用
+
+## 中间件
+-- 1、中间件的第一个功能  可以进行权限判断
+-- 2、可以进行对req和res的属性进行扩充
+-- 3、中间件要放在执行路径的前面
+-- 4、中间件默认情况下都匹配，可以指定匹配什么开头的
+
+## express 搭建服务
+let express = require('express')
+let app = express()
+app.listen(8080)
+
+## express路由
+-- 必须method 和 path 全都匹配上执行对应的callback
+-- app[method](path, fn)
+   app.all('*', fn)
+
+## 路劲参数路由
+-- app.get('/user/:id/:name')：将匹配的结果生成一个对象放到req.params上
+## req上的属性
+    req.params 路劲参数
+    req.url：获取整个路径包括问号后面的
+    req.path: 路径没有问号
+    req.headers: 所有的都是小写
+    req.method: 请求方法, 所有方法都是大写
+    req.query: 获取请求参数 问号后面的参数
+
+## middeleware
+-- 中间件的作用
+    -- 处理公共逻辑， 扩展req，res
+    -- 可以决定是否继续执行
+    -- 开头匹配到就会执行中间件
+    -- 错误中间件，在页面的最后，参数是4个，第一个参数中是错误
+
+
+## res 新增的方法
+-- res.json()
+-- res.sendFile(): 绝对路径  path.join/ path.resolve
+-- res.sendStatus()
+-- res.send()
+
+## 用户管理模块
+-- 划分成不同的模块，模块下对应不同的路径，使用express.Router
+-- 登陆 /login
+-- 注册 /reg
+## 文章管理模块
+-- 发表文章 /post
+-- 删除文章 /delete
