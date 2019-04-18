@@ -45,3 +45,18 @@ let str5 = '7'
 // padStart: 补充多少位, 参数1：多少位，参数2：补的内容
 // padEnd
 console.log('(' + str5.padStart(2, '0') + ')') // 07
+
+//
+let obj = {
+  name: 'aaa',
+  getName: () => {
+    // 箭头函数的this是定死的，指向外层的this，所以这里拿不到name
+    // 箭头函数虽然好，但不能应用到所有的情况
+    console.log(this.name)
+  }
+}
+
+let obj1 = {
+  name: 'bb',
+  getName: obj.getName
+}
