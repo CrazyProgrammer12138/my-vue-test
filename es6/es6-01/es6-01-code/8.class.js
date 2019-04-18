@@ -18,5 +18,10 @@ class Parent {
 // Class constructor Parent cannot be invoked without 'new'
 // 类的构造函数Parent不能再不通过new 的情况下调用
 //  不能这么用 -- Parent('aaa')
-let p = new Parent('aaa')
-p.getName()
+// let p = new Parent('aaa')
+// p.getName()
+
+// 继承
+// 类 和类的实例
+// 一个属性如果放在原型上的话，是可能通过实例来调用的
+// 但是放在类上的，不能通过实例来调用，只能用过类名来调用
