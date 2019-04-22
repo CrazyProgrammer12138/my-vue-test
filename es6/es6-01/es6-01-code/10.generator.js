@@ -8,7 +8,7 @@ function *read(books) {
     console.log('开始')
     for (let i=0;i<books;i++){
         // yield 放弃 屈服的意思  产出
-        yield books[i]
+          books[i]
     }
     console.log('结束')
 }
