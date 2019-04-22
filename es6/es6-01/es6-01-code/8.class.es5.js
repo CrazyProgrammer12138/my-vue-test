@@ -48,6 +48,7 @@ var Parent =
   /*#__PURE__*/
   (function() {
     function Parent(name) {
+      // 为了保证这个类只能用来new休息
       _classCallCheck(this, Parent)
 
       // 实例的私有属性
