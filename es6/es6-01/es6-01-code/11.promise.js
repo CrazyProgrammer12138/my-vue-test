@@ -9,14 +9,14 @@
  */
 let Promise = require('./Promise')
 let p = new Promise(function (resolve, reject) {
-    setTimeout(function () {
+    // setTimeout(function () {
         let num = Math.random();
         if (num>0.5){
             resolve('big')
         } else {
             reject('small')
         }
-    }, 2000)
+    // }, 2000)
 })
 
 p.then(function (value) {
@@ -24,3 +24,10 @@ p.then(function (value) {
 }, function (reason) {
     console.log(reason)
 })
+/**
+ * 成功回调后的值会被用来resolve当前的promise
+ * 场景：
+ * 成功的回调里有返回了一个新的promise
+ * 成功的回调里面返回的promise还不是我自己写的promise
+ * 如果成功的回调里面返回一个promise，那么promise2要以promise的resolve结果来resolve自己
+ */
