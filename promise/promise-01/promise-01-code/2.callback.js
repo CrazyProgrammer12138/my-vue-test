@@ -79,11 +79,8 @@ let done = render(2, function(html) {
   console.log(html)
 })
 fs.readFile('./template.txt', 'utf8', function(err, data) {
-  console.log(data)
-
   done('template', data)
 })
 fs.readFile('./data.txt', 'utf8', function(err, data) {
-  console.log(data)
   done('data', data)
 })
