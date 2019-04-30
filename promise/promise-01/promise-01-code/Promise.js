@@ -70,7 +70,7 @@ function resolvePromise(promise2, x, resolve, reject) {
         // 有些时候promise会同事执行成功和失败得回调
         then.call(
           x,
-          function() {
+          function(y) {
             if (called) return
             called = true
             // 接着解析，知道x或者y是个普通值得时候
@@ -164,5 +164,46 @@ Promise.deferred = Promise.defer = function() {
     defer.reject = reject
   })
   return defer
+}
+function gen(times, cb) {
+  let result = [],
+    count = 0
+  return function(i, data) {
+    result[i] = data
+    if (++count == times) {
+      cb(result)
+    }
+  }
+}
+// all:
+Promise.all = function(promises) {
+  return new Promise(function(resolve, reject) {
+    let done = gen(promises.length, resolve)
+    for (let i = 0; i < promises.length; i++) {
+      promises[i].then(function(data) {
+        done(i, data)
+      }, reject)
+    }
+  })
+}
+//race
+Promise.race = function(promises) {
+  return new Promise(function(resolve, reject) {
+    for (let i = 0; i < promises.length; i++) {
+      promises[i].then(resolve, reject)
+    }
+  })
+}
+// resolve
+Promise.resolve = function(value) {
+  return new Promise(function(resolve) {
+    resolve(value)
+  })
+}
+// reject
+Promise.reject = function(reason) {
+  return new Promise(function(reject) {
+    reject(reason)
+  })
 }
 module.exports = Promise
