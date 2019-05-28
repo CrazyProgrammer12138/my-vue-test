@@ -32,3 +32,35 @@
 -- 异步阻塞
 -- 同步非阻塞
 -- 异步非阻塞
+
+## nextTick setImmediate 区别和联系
+-- nextTick 把回调函数放在当前执行栈的底部
+-- setImmediate 把回调函数放在事件队列的尾部, 不会阻塞当前执行栈
+
+-- process 当前进程
+-- chdir change direcotry 改变当前工作目录
+-- cwd current working directory  当前工作目录
+
+## EventEmitter
+-- addListener(event, listener) //对指定事件绑定事件处理函数 
+-- on(event, listener) // 对指定事件绑定事件处理函数
+-- once(event, listener) // 对指定事件指定只执行一次事件处理函数
+-- removeListener(event, listener) // 对指定事件解除事件处理函数
+-- removeAllListener(event, listener) // 对指定事件解除所有的事件处理函数
+-- setMaxListeners(n) // 指定事件处理函数的最大数量 n为整数，代表最大的可指定事件处理函数的数量
+-- listeners(event) // 获取指定事件的所有事件处理函数
+-- emit(event, [arg1],[arg2].) // 手工触发指定事件
+
+## node 断点调试
+-- V8提供了一个强大的调试器，可以通过TCP协议从外部访问，NodeJS提供一个内建调试器来帮助
+开发者调试应用程序，想要开发调试器我们需要再代码中加入debugger标签，当nodejs 执行
+到debugger标签时会自动暂停
+-- 命令       用途
+-- c         继续执行到下一个断电处
+-- next,n    单步执行
+-- step,s    单步进入函数
+-- out,o     退出当前函数
+-- setBreakpoint(10)   在第10行设置断点
+-- repl      打开求值环境，ctrl_c退回debug模式
+-- watch(exp) 把表达式添加监视列表
+-- watchers  显示所有表达式的值

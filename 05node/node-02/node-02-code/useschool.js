@@ -1,0 +1,1 @@
+var school = require('./school')
