@@ -1,0 +1,11 @@
+## buffer 常用方法
+-- buf.fill() // 参数1：填充的值，参数2：填充的开始索引，参数3：结束索引,不包含最
+后一位
+-- buf.write() // 参数1：写的字符串 参数2：填充开始的索引 参数3：填充的字节长度 参数4：编码
+-- buf.writeInt8()向指定的索引写入一个8位的整数，参数1：写入的值  参数2：偏移量
+-- buf.writeInt16BE() 高位写入
+-- buf.readInt16BE() 高位读
+-- buf.writeInt16LE() 低位写入
+-- buf.toString('utf8'3，6) buffer转换成字符串，参数2：开始 参数3:结束位置
+-- buf.slice(star, end) 截取buffer，截取字符串：返回新的buffer，浅拷贝
+-- Buffer.concat([], length) 链接buffer 参数1：数组，参数2：链接长度
