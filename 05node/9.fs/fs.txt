@@ -34,6 +34,10 @@ fs.read(fd, buffer, offset, length, position, callback) 精确读一个文件
     position：从文件中读取的位置
     callback(err, bytesRead) bytesRead: 读取字节数
 fs.close(): 关闭文件
-fs.fsync(): 强行的把缓存取得数据写入文件，并且关闭
+fs.fsync(fd, callback): 强行的把缓存取得数据写入文件，并且关闭
 fs.mkdir(dir, callback): 创建目录
 fs.access(dir, fs.constants.R_OK,callback) 判断是否有权限访问这个目录
+fs.readdir(path, options, callback) 获取一个目录下面得所有文件或目录
+fs.unlink(path, callback) 删除一个非空目录
+fs.rmdir(path, callback) 删除一个空目录
+fs.stat() 检测文件是够存在
