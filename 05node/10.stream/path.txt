@@ -1,0 +1,17 @@
+path常用方法
+    path.join('a','b') 连接两个目录
+    path.resolve('..','.', 'a') 从当前路径 出发，解析出一个绝对路径
+        .. 代表上一级目录
+        . 代表当前目录
+         字符串 a 代表当前目录 下面的 a 目录
+    因为在不同的操作系统，分隔符不一样
+    window ; mac linux :
+    path.delimiter; // 环境变量路径分隔符
+        path.win32.delimiter windows-> ;
+        path.posix.delimiter  linux-> : (posix：linux)
+    path.sep;// 文件路径分隔符
+        path.win32.sep windows-> /
+        path.posix.sep  linux-> \ (posix：linux)
+path.relative 获得两个路径之间的相对路径
+path.basename('aa.jpg', 'jpg') 获取的是文件名, 参数2：加上表示去掉jpg后缀
+path.extname 获取的是文件的扩展名

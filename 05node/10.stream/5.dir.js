@@ -7,7 +7,7 @@ let path = require('path')
 function rmdir(dir) {
     return new Promise(function (resolve, reject) {
         fs.stat(dir, (err, stat)=>{
-            // if (err) return reject(err);
+            if (err) return reject(err);
             console.log(dir);
             if (stat.isDirectory()){
                 fs.readdir(dir, (err, files)=>{
