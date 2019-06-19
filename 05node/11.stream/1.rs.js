@@ -19,6 +19,7 @@ rs.on('open', function () {
 // 设置读取流的编码
 rs.setEncoding('utf8');
 // 监听它的data 事件，当你一旦开始监听data事件的时候，流就可以读文件的内容并且发射data
+//默认
 rs.on('data', function (data) {
     rs.pause();
     console.log(data);
@@ -37,4 +38,3 @@ rs.on('end', function () {
 rs.on('close', function () {
     console.log('文件关闭');
 })
-zjy0426
