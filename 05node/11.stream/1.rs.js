@@ -10,7 +10,7 @@ let rs = fs.createReadStream('./1.txt', {
     start:3, // 从索引为3的位置开始读
     // 这是唯一一个包括结束索引的
     end: 8,// 读到索引为8结束
-    // highWaterMark: 缓冲区大小
+    // highWaterMark: 缓冲区大小 最高水位线
     highWaterMark: 3
 });
 rs.on('open', function () {
