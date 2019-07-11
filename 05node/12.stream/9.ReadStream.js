@@ -46,16 +46,24 @@ class ReadStream extends EventEmitter{
     read(n){
         let ret;
         // 缓存区数据足够用，并且要读取的字节大于0
+
+        // 缓存区的数量，满足每次读取的数量
+        // 从缓存去中拿数据
         if (0<n<this.length){
             ret = Buffer.alloc(n);
             let index = 0;
             let b;
+            // 读取的量有可能是最高水位线的1倍或者2倍，所以需要循环把容器填满为止
             while (null != (b = this.buffers.shift())){
                 for (let i=0; i<b.length;i++){
                     ret[index++] = b[i];
+                    // 
                     if (index == n) { //填充完毕
+                        // 有可能b用不完，填充需要3个字节，b有5个字节，还剩两个字节，需要再填充会b里面
                         b = b.slice(i);
+                        // 
                         this.buffers.unshift(b);
+                        // 读到了几个，减掉几个
                         this.length -= n;
                         break;
                     }
@@ -65,12 +73,17 @@ class ReadStream extends EventEmitter{
         if (this.length<this.highWaterMark){
             fs.read(this.fd, this.buffer,0,this.highWaterMark,null,(err, bytesRead)=>{
                 if (bytesRead) {
+                    // 读取到缓存中，当缓存满了之后就不会再读取了
+                    // 先把要读取的数据截出来
                     let b = this.buffer.slice(0,bytesRead);
+                    // 放到缓存中去
                     this.buffers.push(b);
                     // 让缓存区的数量加实际读到的字节数
                     this.length += bytesRead;
+                    // 缓存区存满之后，要发射readable事件，让外界监听
                     this.emit('readable');
                 } else{
+                    // 没有读到，说明读取完毕了
                     this.emit('end');
                 }
             })

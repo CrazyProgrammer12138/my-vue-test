@@ -39,7 +39,7 @@ class ReadStream extends EventEmitter{
         if (typeof this.fd != 'number') {
             return this.once('open', ()=> this.read())
         }
-        let howMoth = this.end?Math.min(this.end - this.pos +1, this.highWaterMark):this.highWaterMark;
+        let howMoth = this.end?Math.min(this.end - this.pos+1, this.highWaterMark):this.highWaterMark;
         fs.read(this.fd,this.buffer,0,howMoth,this.pos,(err, bytes)=>{
             if (err){
                 if (this.autoClose){
@@ -49,14 +49,13 @@ class ReadStream extends EventEmitter{
             }
             if (bytes){
                 let data = this.buffer.slice(0, bytes);
-                data = this.encoding?data.toString(this.encoding):data
+                data = this.encoding?data.toString(this.encoding):data;
                 this.pos += bytes;
                 this.emit('data', data);
                 if (this.end && this.pos > this.end){
                     return this.endFn();
                 } else {
-                    if (this.flowing)
-                    this.read();
+                    if (this.flowing) this.read();
                 }
             } else {
                 return this.endFn();
