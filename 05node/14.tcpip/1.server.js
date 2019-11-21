@@ -4,6 +4,7 @@ let net = require('net');
 let server = net.createServer({}, function (socket) {
     console.log('客户端已经链接');
     console.log(socket.address());
+    socket.setEncoding('utf8');
     // 表示客户端连接的总数量
     server.maxConnections = 2;
     // 获取当前有多少个客户端正在连接服务器

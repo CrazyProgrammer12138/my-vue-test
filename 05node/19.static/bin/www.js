@@ -1,0 +1,35 @@
+let yargs = require('yargs')
+let Server = require('../src/app.js')
+//zf-server -d 指定静态文件根目录 -p 指定端口号 -o 指定监听的主机
+let argv = yargs.option('d', {
+    //option方法允许将所有的配置写入配置对象
+    // 配置执行命令 -d 
+    alias: 'root', //名字
+    demand: 'false', //
+    type: 'string',
+    default: process.cwd(),
+    description: '静态文件根目录'
+}).option('o', {
+    //option方法允许将所有的配置写入配置对象
+    // 配置执行命令 -o 
+    alias: 'host', //名字
+    demand: 'false', //
+    type: 'string',
+    default: 'localhost',
+    description: '请配置监听的主机'
+}).option('p', {
+    //option方法允许将所有的配置写入配置对象
+    // 配置执行命令 -p 
+    alias: 'port', //名字
+    demand: 'false', //
+    type: 'number',
+    default: 8080,
+    description: '请配置端口号'
+})
+    .usage('zf-server2 [options]')
+    .example(
+        'zf-server2 -d / -p 9090 -o localhost', '在本机的9090端口上监听客户端的请求'
+    ).help('h').argv;
+
+    let server = new Server(argv)
+    server.start()
